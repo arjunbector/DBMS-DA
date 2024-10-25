@@ -8,57 +8,57 @@ generator client {
 }
 
 model Product {
-  product_id  Int         @id @default(autoincrement())
+  productId   String      @id @default(uuid())
   name        String
   description String?
   price       Decimal
-  category_id Int
-  supplier_id Int
-  category    Category    @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
-  supplier    Supplier    @relation(fields: [supplier_id], references: [supplier_id], onDelete: Cascade)
+  categoryId  String
+  supplierId  String
+  category    Category    @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+  supplier    Supplier    @relation(fields: [supplierId], references: [supplierId], onDelete: Cascade)
   inventory   Inventory?
   OrderItem   OrderItem[]
 }
 
 model Category {
-  category_id Int       @id @default(autoincrement())
-  name        String
+  categoryId  String    @id @default(uuid())
+  name        String    @unique
   description String?
   Product     Product[]
 }
 
 model Supplier {
-  supplier_id        Int       @id @default(autoincrement())
-  name               String
+  supplierId         String    @id @default(uuid())
+  name               String    @unique
   contactInformation String?
   address            String?
   Product            Product[]
 }
 
 model Inventory {
-  inventory_id Int      @id @default(autoincrement())
-  quantity     Int
-  lastUpdated  DateTime @updatedAt
-  product_id   Int      @unique
-  product      Product  @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  inventoryId String   @id @default(uuid())
+  quantity    Int
+  lastUpdated DateTime @updatedAt
+  productId   String   @unique
+  product     Product  @relation(fields: [productId], references: [productId], onDelete: Cascade)
 }
 
 model Order {
-  order_id    Int         @id @default(autoincrement())
+  orderId     String      @id @default(uuid())
   orderDate   DateTime    @default(now())
   totalAmount Decimal
-  status      String
+  status      String      @default("PENDING")
   OrderItem   OrderItem[]
 }
 
 model OrderItem {
-  order_item_id Int     @id @default(autoincrement())
-  quantity      Int
-  price         Decimal
-  order_id      Int
-  product_id    Int
-  order         Order   @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
-  product       Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  orderItemId String  @id @default(uuid())
+  quantity    Int
+  price       Decimal
+  orderId     String
+  productId   String
+  order       Order   @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+  product     Product @relation(fields: [productId], references: [productId], onDelete: Cascade)
 
-  @@unique([order_id, product_id]) // Ensures each product can only appear once per order
+  @@unique([orderId, productId]) // Ensures each product can only appear once per order
 }
