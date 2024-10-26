@@ -5,23 +5,27 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import axios from "axios";
 interface DeleteItemButtonProps {
   id: string;
   apiEndpoint: string;
+  queryKey: string;
 }
-const DeleteItemButton = ({ apiEndpoint, id }: DeleteItemButtonProps) => {
+const DeleteItemButton = ({
+  apiEndpoint,
+  id,
+  queryKey,
+}: DeleteItemButtonProps) => {
   const queryClient = useQueryClient();
   const [showAlert, setShowAlert] = useState(false);
   const mutation = useMutation({
     mutationFn: async () => {
-      await fetch(`/api/${apiEndpoint}/${id}`, {
-        method: "DELETE",
-      });
+      await axios.delete(`/api/${apiEndpoint}/${id}`);
     },
     onSuccess: () => {
       toast.success("Item deleted successfully");
       queryClient.invalidateQueries({
-        queryKey: [`${apiEndpoint}s`],
+        queryKey: [queryKey],
         refetchType: "all",
       });
       setShowAlert(false);

@@ -1,4 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import LoadingIndicator from "./loading";
+import { Button } from "./ui/button";
+import CustomFormError from "./ui/custom-error";
 import {
   Dialog,
   DialogContent,
@@ -6,27 +14,18 @@ import {
   DialogFooter,
   DialogHeader,
 } from "./ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { useForm } from "react-hook-form";
-import CustomFormError from "./ui/custom-error";
-import { Textarea } from "./ui/textarea";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "sonner";
-import LoadingIndicator from "./loading";
+import { Label } from "./ui/label";
 import LoadingButton from "./ui/loadingButton";
+import { Textarea } from "./ui/textarea";
 
 interface AddCategoryDialogProps {
-  open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddProductDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
+const AddProductDialog = ({ setOpen }: AddCategoryDialogProps) => {
   const queryClient = useQueryClient();
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["add-product"],
     queryFn: async () => {
       const [categoriesData, suppliersData] = await Promise.all([
@@ -61,7 +60,7 @@ const AddProductDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
         refetchType: "all", // refetch both active and inactive queries
       });
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("An error occurred");
     },
   });
@@ -101,7 +100,7 @@ const AddProductDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
             >
               <option value="none">--Select Category--</option>
               {data?.categories.map((category: any) => (
-                <option value={category.categoryId}>{category.name}</option>
+                <option key={category.categoryId} value={category.categoryId}>{category.name}</option>
               ))}
             </select>
             {errors.categoryId && (
@@ -119,7 +118,9 @@ const AddProductDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
             >
               <option value="none">--Select Supplier--</option>
               {data?.suppliers.map((supplier: any) => (
-                <option value={supplier.supplierId}>{supplier.name}</option>
+                <option key={supplier.supplierId} value={supplier.supplierId}>
+                  {supplier.name}
+                </option>
               ))}
             </select>
             {errors.supplierId && (

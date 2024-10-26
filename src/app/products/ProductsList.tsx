@@ -1,4 +1,5 @@
 "use client";
+import DeleteItemButton from "@/components/DeleteItemButton";
 import LoadingIndicator from "@/components/loading";
 import {
   Table,
@@ -9,15 +10,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import AddRecords from "./AddRecords";
-import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
-import DeleteItemButton from "@/components/DeleteItemButton";
 
 const ProductsList = () => {
-  const { data, refetch, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await fetch("/api/product");
@@ -62,6 +58,7 @@ const ProductsList = () => {
                   <DeleteItemButton
                     apiEndpoint="product"
                     id={product.productId}
+                    queryKey="products"
                   />
                 </TableCell>
               </TableRow>

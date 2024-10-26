@@ -34,12 +34,12 @@ export async function POST(req: Request) {
 }
 
 
-export async function GET(req: Request) {
+export async function GET() {
     try {
         const products = await prisma.product.findMany({
-            include: {
-                category: true,
-                supplier: true
+            include:{
+                category:true,
+                supplier:true
             }
         });
         return NextResponse.json({ data: products }, { status: 200 })

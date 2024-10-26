@@ -24,3 +24,8 @@ export const createProductSchema = z.object({
     description: z.string(),
     price: z.number(),
 }) 
+
+export const createInventorySchema = z.object({
+    productId: z.string().uuid(),
+    quantity: z.number(),
+})

@@ -1,21 +1,21 @@
 import { prisma } from "@/lib/prisma";
-import { createCategorySchema } from "@/lib/validation";
+import { createInventorySchema } from "@/lib/validation";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 export async function POST(req: Request) {
     try {
         const data = await req.json();
-        const parsedData = createCategorySchema.parse(data);
-        const category = await prisma.category.create({
+        const parsedData = createInventorySchema.parse(data);
+        const inventoryItem = await prisma.inventory.create({
             data: {
-                name: parsedData.name,
-                description: parsedData.description
+                productId: parsedData.productId,
+                quantity: parsedData.quantity,
             }
         })
         return NextResponse.json({
             message: "success", data: {
-                category
+                inventoryItem
             }
         }, { status: 200 })
     }
@@ -33,8 +33,12 @@ export async function POST(req: Request) {
 
 export async function GET() {
     try {
-        const categories = await prisma.category.findMany();
-        return NextResponse.json({ data: categories }, { status: 200 })
+        const inventoryItems = await prisma.inventory.findMany({
+            include: {
+                product: true
+            }
+        });
+        return NextResponse.json({ data: inventoryItems }, { status: 200 })
     }
     catch (err: any) {
         console.log(err);

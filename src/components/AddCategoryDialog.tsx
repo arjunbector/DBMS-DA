@@ -19,11 +19,10 @@ import { toast } from "sonner";
 import LoadingButton from "./ui/loadingButton";
 
 interface AddCategoryDialogProps {
-  open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddCategoryDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
+const AddCategoryDialog = ({ setOpen }: AddCategoryDialogProps) => {
   const {
     register,
     handleSubmit,
@@ -39,7 +38,7 @@ const AddCategoryDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
       toast.success("Category added successfully");
       setOpen(false);
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("An error occurred");
     },
   });

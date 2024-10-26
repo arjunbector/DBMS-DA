@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 }
 
 
-export async function GET(req: Request) {
+export async function GET() {
     try {
         const orders = await prisma.order.findMany();
         return NextResponse.json({ data: orders }, { status: 200 })

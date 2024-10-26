@@ -1,4 +1,11 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
+import CustomFormError from "./ui/custom-error";
 import {
   Dialog,
   DialogContent,
@@ -6,24 +13,16 @@ import {
   DialogFooter,
   DialogHeader,
 } from "./ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { useForm } from "react-hook-form";
-import CustomFormError from "./ui/custom-error";
-import { Textarea } from "./ui/textarea";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "sonner";
+import { Label } from "./ui/label";
 import LoadingButton from "./ui/loadingButton";
+import { Textarea } from "./ui/textarea";
 
 interface AddCategoryDialogProps {
-  open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddSupplierDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
+const AddSupplierDialog = ({ setOpen }: AddCategoryDialogProps) => {
   const {
     register,
     handleSubmit,
@@ -39,7 +38,7 @@ const AddSupplierDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
       toast.success("Category added successfully");
       setOpen(false);
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("An error occurred");
     },
   });

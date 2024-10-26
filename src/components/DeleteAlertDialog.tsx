@@ -1,25 +1,22 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
-  AlertDialogAction,
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
+  AlertDialogTitle
 } from "./ui/alert-dialog";
 import LoadingButton from "./ui/loadingButton";
 
 interface DeleteAlertDialogProps {
-  open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   onConfirm: () => void;
   pending: boolean;
 }
 
 export const DeleteAlertDialog = ({
-  open,
   setOpen,
   onConfirm,
   pending = false,
