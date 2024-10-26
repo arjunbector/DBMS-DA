@@ -16,3 +16,11 @@ export const createOrderSchema = z.object({
     totalAmount: z.number(),
     status: z.enum(["PENDING", "COMPLETED", "CANCELLED"]),
 })
+
+export const createProductSchema = z.object({
+    categoryId: z.string().uuid(),
+    supplierId: z.string().uuid(),
+    name: z.string().min(3).max(255),
+    description: z.string(),
+    price: z.number(),
+}) 
