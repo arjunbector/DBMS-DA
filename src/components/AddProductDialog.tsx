@@ -17,6 +17,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import LoadingIndicator from "./loading";
+import LoadingButton from "./ui/loadingButton";
 
 interface AddCategoryDialogProps {
   open: boolean;
@@ -157,10 +158,17 @@ const AddProductDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
               onClick={() => {
                 setOpen(false);
               }}
+              disabled={mutation.isPending}
             >
               Cancel
             </Button>
-            <Button type="submit">Add</Button>
+            <LoadingButton
+              loading={mutation.isPending}
+              disabled={mutation.isPending}
+              type="submit"
+            >
+              Add
+            </LoadingButton>
           </DialogFooter>
         </form>
       </DialogContent>

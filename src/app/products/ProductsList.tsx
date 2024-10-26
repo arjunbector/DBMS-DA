@@ -21,9 +21,6 @@ const ProductsList = () => {
       return productsData.data;
     },
   });
-  console.log(data);
-  console.log(isLoading);
-  console.log(error);
 
   if (isLoading) {
     return <LoadingIndicator />;

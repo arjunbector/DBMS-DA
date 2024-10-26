@@ -16,6 +16,7 @@ import { Textarea } from "./ui/textarea";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
+import LoadingButton from "./ui/loadingButton";
 
 interface AddCategoryDialogProps {
   open: boolean;
@@ -79,10 +80,17 @@ const AddCategoryDialog = ({ setOpen, open }: AddCategoryDialogProps) => {
               onClick={() => {
                 setOpen(false);
               }}
+              disabled={mutation.isPending}
             >
               Cancel
             </Button>
-            <Button type="submit">Add</Button>
+            <LoadingButton
+              loading={mutation.isPending}
+              disabled={mutation.isPending}
+              type="submit"
+            >
+              Add
+            </LoadingButton>
           </DialogFooter>
         </form>
       </DialogContent>
