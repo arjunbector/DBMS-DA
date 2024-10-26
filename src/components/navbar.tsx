@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex items-center gap-8 text-lg">
           <Link href="/">Home</Link>
           <Link href="/inventory">Inventory</Link>
-          <Link href="/products">Produts</Link>
+          <Link href="/products">Products</Link>
         </div>
       </MaxWidthWrapper>
     </nav>
