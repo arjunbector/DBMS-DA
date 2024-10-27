@@ -40,12 +40,14 @@ const SuppliersList = () => {
             <TableHead>Name</TableHead>
             <TableHead>Contact Info</TableHead>
             <TableHead>Address</TableHead>
+            <TableHead>Delete</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((supplier: any) => {
             return (
               <TableRow key={supplier.supplierId}>
+                <TableCell>{supplier.supplierId}</TableCell>
                 <TableCell>{supplier.name}</TableCell>
                 <TableCell>{supplier.contactInformation}</TableCell>
                 <TableCell>{supplier.address}</TableCell>

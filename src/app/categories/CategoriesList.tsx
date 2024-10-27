@@ -44,7 +44,8 @@ const CategoriesList = () => {
         <TableBody>
           {data.map((category: any) => {
             return (
-              <TableRow key={category.categryId}>
+              <TableRow key={category.categoryId}>
+                <TableCell>{category.categoryId}</TableCell>
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{category.description || "-"}</TableCell>
                 <TableCell>
