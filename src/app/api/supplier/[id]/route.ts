@@ -4,19 +4,19 @@ import { NextResponse } from "next/server";
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
         const { id } = params;
-        const product = await prisma.product.findUnique({
+        const supplier = await prisma.supplier.findUnique({
             where: {
-                productId: id
+                supplierId: id
             }
         })
-        if (!product) return NextResponse.json({ message: "Product not found" }, { status: 404 });
-        const deletedProduct = await prisma.product.delete({
+        if (!supplier) return NextResponse.json({ message: "Product not found" }, { status: 404 });
+        const deletedSupplier = await prisma.supplier.delete({
             where: {
-                productId: id
+                supplierId: id
             }
         })
 
-        return NextResponse.json({ message: "success", deletedProduct }, { status: 200 });
+        return NextResponse.json({ message: "success", deletedSupplier }, { status: 200 });
     }
     catch (err: any) {
         console.log(err);

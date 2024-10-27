@@ -1,19 +1,19 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import React from "react";
-import InventoryList from "./InventoryList";
+import CategoriesList from "./CategoriesList";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Inventory",
-  description: "Inventory page",
+  title: "Categories",
+  description: "Categories page",
 };
 
-const InventoryPage = () => {
+const CategoriesPage = () => {
   return (
     <MaxWidthWrapper>
-      <InventoryList />
+      <CategoriesList/>
     </MaxWidthWrapper>
   );
 };
 
-export default InventoryPage;
+export default CategoriesPage;

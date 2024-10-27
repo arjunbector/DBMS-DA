@@ -31,6 +31,7 @@ const ProductsList = () => {
 
   return (
     <div>
+      <h1 className="text-center text-3xl font-bold">Products</h1>
       <AddRecords />
       <Table>
         <TableHeader>

@@ -17,9 +17,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center gap-8 text-lg">
-          <Link href="/">Home</Link>
-          <Link href="/inventory">Inventory</Link>
-          <Link href="/products">Products</Link>
+          <Link className="hover:underline" href="/">Home</Link>
+          <Link className="hover:underline" href="/inventory">Inventory</Link>
+          <Link className="hover:underline" href="/products">Products</Link>
+          <Link className="hover:underline" href="/suppliers">Suppliers</Link>
+          <Link className="hover:underline" href="/categories">Categories</Link>
         </div>
       </MaxWidthWrapper>
     </nav>
