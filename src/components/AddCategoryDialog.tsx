@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import CustomFormError from "./ui/custom-error";
 import { Textarea } from "./ui/textarea";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import LoadingButton from "./ui/loadingButton";
@@ -30,6 +30,7 @@ const AddCategoryDialog = ({ setOpen }: AddCategoryDialogProps) => {
   } = useForm({
     mode: "all",
   });
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (formData: any) => {
       await axios.post("/api/category", formData);
@@ -37,6 +38,10 @@ const AddCategoryDialog = ({ setOpen }: AddCategoryDialogProps) => {
     onSuccess: () => {
       toast.success("Category added successfully");
       setOpen(false);
+      queryClient.invalidateQueries({
+        queryKey: ["categories"],
+        refetchType: "all",
+      });
     },
     onError: () => {
       toast.error("An error occurred");

@@ -11,22 +11,13 @@ const AddRecords = () => {
   return (
     <div className="my-10 flex justify-end gap-4">
       {showAddCategoryDialog && (
-        <AddCategoryDialog
-          open={showAddCategoryDialog}
-          setOpen={setShowAddCategoryDialog}
-        />
+        <AddCategoryDialog setOpen={setShowAddCategoryDialog} />
       )}
       {showAddSupplierDialog && (
-        <AddSupplierDialog
-          open={showAddSupplierDialog}
-          setOpen={setShowAddSupplierDialog}
-        />
+        <AddSupplierDialog setOpen={setShowAddSupplierDialog} />
       )}
       {showAddProductDialog && (
-        <AddProductDialog
-          open={showAddProductDialog}
-          setOpen={setShowAddProductDialog}
-        />
+        <AddProductDialog setOpen={setShowAddProductDialog} />
       )}
       <Button
         variant="outline"

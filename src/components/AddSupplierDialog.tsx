@@ -1,5 +1,5 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,7 @@ const AddSupplierDialog = ({ setOpen }: AddCategoryDialogProps) => {
   } = useForm({
     mode: "all",
   });
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (formData: any) => {
       await axios.post("/api/supplier", formData);
@@ -37,6 +38,10 @@ const AddSupplierDialog = ({ setOpen }: AddCategoryDialogProps) => {
     onSuccess: () => {
       toast.success("Category added successfully");
       setOpen(false);
+      queryClient.invalidateQueries({
+        queryKey: ["suppliers"],
+        refetchType: "all", // refetch both active and inactive queries
+      });
     },
     onError: () => {
       toast.error("An error occurred");
