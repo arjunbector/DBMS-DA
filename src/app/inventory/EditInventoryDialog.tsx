@@ -44,7 +44,7 @@ const EditInventoryDialog = ({ id, setOpen }: EditInventoryDialogProps) => {
 
   const mutation = useMutation({
     mutationFn: async (formData: any) => {
-      await axios.put("/api/inventory", {
+      await axios.put(`/api/inventory/${id}`, {
         ...formData,
         quantity: parseFloat(formData.quantity),
       });
